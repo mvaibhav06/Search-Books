@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Home from "./Home";
+import Main from "./Main";
+import Images from "./Images";
+import { useState } from "react";
 
 function App() {
+  const [data, setData] = useState({});
+
+  const searchData = (responseData) => {
+    setData(responseData);
+  };
+  console.log(data);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Home />
+      <Main searchData={searchData} />
+      <br />
+
+      {Object.keys(data).length > 0 && (
+        <p className="container">About {data.totalItems} books found</p>
+      )}
+
+      {Object.keys(data).length > 0 && <Images data={data} />}
     </div>
   );
 }
